@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>账单记录 MVP</title>
+    <script type="module" src="/src/main.js"></script>
+  </head>
+  <body>
+    <div id="app" class="shell">
+      <header class="hero card">
+        <div>
+          <p class="eyebrow">Supabase 记账应用</p>
+          <h1>账单记录与查看</h1>
+          <p class="muted">固定分类：交通 / 教育 / 美食 / 打扮 / 旅游</p>
+        </div>
+        <div class="stats">
+          <div>
+            <span>总支出</span>
+            <strong id="totalAmount">¥0.00</strong>
+          </div>
+          <div>
+            <span>记录数</span>
+            <strong id="totalCount">0</strong>
+          </div>
+        </div>
+      </header>
+
+      <main class="grid">
+        <section class="card">
+          <div class="section-head">
+            <h2>新增账单</h2>
+            <p class="muted">直接写入 Supabase `expenses` 表</p>
+          </div>
+          <form id="expenseForm" class="form">
+            <label>
+              金额
+              <input id="amount" name="amount" type="number" min="0" step="0.01" required placeholder="例如 28.50" />
+            </label>
+            <label>
+              分类
+              <select id="category" name="category" required></select>
+            </label>
+            <label>
+              日期
+              <input id="date" name="date" type="date" required />
+            </label>
+            <label>
+              备注
+              <textarea id="note" name="note" rows="3" placeholder="可选"></textarea>
+            </label>
+            <button class="primary" type="submit">保存账单</button>
+          </form>
+          <p id="formMessage" class="message" aria-live="polite"></p>
+        </section>
+
+        <section class="card">
+          <div class="section-head">
+            <h2>分类汇总</h2>
+            <p class="muted">按固定 5 个分类统计</p>
+          </div>
+          <div id="categorySummary" class="summary-list"></div>
+        </section>
+      </main>
+
+      <section class="card records-card">
+        <div class="section-head">
+          <h2>账单列表</h2>
+          <button id="refreshButton" class="ghost" type="button">刷新</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>日期</th>
+                <th>分类</th>
+                <th>金额</th>
+                <th>备注</th>
+              </tr>
+            </thead>
+            <tbody id="recordsBody">
+              <tr>
+                <td colspan="4" class="empty">加载中...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
